@@ -1,6 +1,5 @@
 class Order < ApplicationRecord
   belongs_to :book
-  belongs_to :cart
   belongs_to :member
   has_many :ratings, dependent: :destroy
 

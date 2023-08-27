@@ -5,7 +5,7 @@ class CreateRatings < ActiveRecord::Migration[7.0]
       t.text :comment
       t.references :book, null: false, foreign_key: true
       t.references :member, null: false,foreign_key: true
-      t.references :member, null: false,foreign_key: true
+      # t.references :member, null: false,foreign_key: true
       t.timestamps
     end
   end

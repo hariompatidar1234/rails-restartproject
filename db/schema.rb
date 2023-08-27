@@ -23,16 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_092544) do
     t.index ["title"], name: "index_books_on_title", unique: true
   end
 
-  create_table "carts", force: :cascade do |t|
-    t.integer "quantity"
-    t.integer "book_id", null: false
-    t.integer "member_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_carts_on_book_id"
-    t.index ["member_id"], name: "index_carts_on_member_id"
-  end
-
   create_table "members", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -47,12 +37,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_092544) do
   create_table "orders", force: :cascade do |t|
     t.integer "quantity"
     t.integer "book_id", null: false
-    t.integer "cart_id", null: false
     t.integer "member_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_orders_on_book_id"
-    t.index ["cart_id"], name: "index_orders_on_cart_id"
     t.index ["member_id"], name: "index_orders_on_member_id"
   end
 
@@ -68,10 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_092544) do
   end
 
   add_foreign_key "books", "members"
-  add_foreign_key "carts", "books"
-  add_foreign_key "carts", "members"
   add_foreign_key "orders", "books"
-  add_foreign_key "orders", "carts"
   add_foreign_key "orders", "members"
   add_foreign_key "ratings", "books"
   add_foreign_key "ratings", "members"

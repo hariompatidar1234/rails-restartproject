@@ -1,9 +1,8 @@
 class Member < ApplicationRecord
 	has_many :books, dependent: :destroy
 	has_many :orders, dependent: :destroy
-  has_many :carts, dependent: :destroy
   has_many :ratins, dependent: :destroy
- ROLES = %w[user admin].freeze
+  ROLES = %w[user admin].freeze
 
   scope :admins, -> { where(role: "admin") }
   scope :users, -> { where(role: "user") }
@@ -17,12 +16,13 @@ class Member < ApplicationRecord
   validates :address, format: { with: /\A[\w\s]+\z/, message: "only allows letters, digits, and spaces" }
   validate :unique_email_for_users_and_admins
 
-  private
-
   def unique_email_for_users_and_admins
-    if Member.exists?(email: email, role: ["user", "admin"])
-      errors.add(:email, "has already been taken by a user or admin")
-    end
+  existing_member = Member.find_by(email: email)
+  
+  if existing_member && existing_member.role.in?(["user", "admin"]) && (new_record? || existing_member.id != id)
+    errors.add(:email, "has already been taken by a user or admin")
   end
+end
+
 
 end

@@ -76,3 +76,4 @@ end
 gem "jwt"
 gem "active_model_serializers"
 gem "byebug"
+gem 'rubocop', require: false
