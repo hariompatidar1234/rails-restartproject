@@ -10,7 +10,7 @@ class RatingsController < ApplicationController
 
   # Create a rating
   def create
-    rating = current_member.ratings.build(set_params)
+    rating = current_member.ratings(set_params)
     if rating.save
       render json: rating, status: :ok
     else
@@ -18,27 +18,9 @@ class RatingsController < ApplicationController
     end
   end
 
-  # Update a rating
-  def update
-    if @rating.update(set_params)
-      render json: @rating
-    else
-      render json: { errors: @rating.errors.full_messages }, status: :unprocessable_entity
-    end
-  end
-
   # Show a particular rating
   def show
     render json: @rating
-  end
-
-  # Delete a rating
-  def destroy
-    if @rating.destroy
-      render json: { message: 'Rating has been deleted' }
-    else
-      render json: { message: 'Rating not deleted' }
-    end
   end
 
   private

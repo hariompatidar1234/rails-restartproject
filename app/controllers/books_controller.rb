@@ -24,7 +24,8 @@ class BooksController < ApplicationController
 
   # Show a particular book
   def show
-    render json: @book
+    book= @current_member.books
+    render json: book
   end
 
   # Update a book
@@ -38,7 +39,8 @@ class BooksController < ApplicationController
 
   # Delete a book
   def destroy
-    if @book.destroy
+    if @book
+      @book.destroy
       render json: { message: 'Deleted successfully' }
     else
       render json: { message: 'Failed to delete the book' }

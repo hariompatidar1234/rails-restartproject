@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
 
   # Create an order
   def create
-    order = current_member.orders.build(set_params)
+    order = @current_member.orders(set_params)
     book = Book.find_by(id: order.book_id)
 
     if book
@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
   private
 
   def set_params
-    params.permit(:book_id, :quantity, :cart_id, :member_id)
+    params.permit(:book_id, :quantity,:member_id)
   end
 
   def find_order
