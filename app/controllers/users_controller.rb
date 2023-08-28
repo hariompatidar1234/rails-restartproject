@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[update destroy show]
-  skip_before_action :verify_authenticity_token, only: %i[create login]
+  skip_before_action :verify_authenticity_token, only: %i[create update]
+  skip_before_action :authenticate_request, only: [:create]
+  skip_before_action :check_user, only: [:create]
+  skip_before_action :check_admin
+
   def create
     @user = User.new(user_params)
     if @user.save

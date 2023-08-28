@@ -23,11 +23,11 @@ class ApplicationController < ActionController::Base
   attr_reader :current_member
 
   def check_admin
-    render json: { message: 'You are not admin' } unless @current_user.type == 'Admin'
+    render json: { message: 'You are not admin' } unless @current_member.type == 'Admin'
   end
 
   def check_user
-    render json: { message: 'You are not check_user' } unless @current_user.type == 'check_user'
+    render json: { message: 'You are not check_user' } unless @current_member.type == 'User'
   end
 
   def render_404

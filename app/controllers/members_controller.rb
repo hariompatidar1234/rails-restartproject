@@ -2,6 +2,7 @@ class MembersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[index create login]
   skip_before_action :check_admin
   skip_before_action :check_user
+  skip_before_action :verify_authenticity_token, only: [:login]
 
   def index
     members = Member.all
@@ -10,7 +11,7 @@ class MembersController < ApplicationController
 
   def login
     member = Member.find_by(email: params[:email], password: params[:password])
-    if user
+    if member
       token = jwt_encode(member_id: member.id)
       render json: { message: 'Logged In Successfully..', token: token }
     else

@@ -13,25 +13,15 @@ class BooksController < ApplicationController
     end
   end
 
-  # Create a book (only for administrators)
-  # def create
-  #   book = Book.new(set_params)
-  #   if @current_member.type = 'admin' && book.save
-  #     render json: book
-  #   else
-  #       render json: { error: book.errors.full_messages }, status: :unprocessable_entity
-  #   end
-  # end
-
-	def create
-		book = @current_member.books.new(book_params)
-	  if book.save
+  def create
+    book = @current_member.books.new(book_params)
+    if book.save
       render json: book, status: :created
     else
       render json: { error: book.errors.full_messages }, status: :unprocessable_entity
     end
-	end
-  
+  end
+
   # Show a particular book
   def show
     render json: @book
@@ -67,10 +57,4 @@ class BooksController < ApplicationController
 
     render json: 'Book not found'
   end
-
-  # def require_admin
-  #   unless current_user && current_user.type == "Administrator"
-  #     render json: { message: "Only administrators can create books" }, status: :unauthorized
-  #   end
-  # end
 end
