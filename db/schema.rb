@@ -10,69 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_27_092544) do
-  create_table "books", force: :cascade do |t|
-    t.string "title"
-    t.string "author"
-    t.decimal "price", precision: 5, scale: 2
-    t.integer "quantity", default: 0, null: false
-    t.integer "member_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["member_id"], name: "index_books_on_member_id"
-    t.index ["title"], name: "index_books_on_title", unique: true
+ActiveRecord::Schema[7.0].define(version: 20_230_828_061_157) do
+  create_table 'books', force: :cascade do |t|
+    t.string 'title'
+    t.string 'author'
+    t.decimal 'price', precision: 5, scale: 2
+    t.integer 'quantity', default: 0, null: false
+    t.integer 'member_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['member_id'], name: 'index_books_on_member_id'
+    t.index ['title'], name: 'index_books_on_title', unique: true
   end
 
-  create_table "carts", force: :cascade do |t|
-    t.integer "quantity"
-    t.integer "book_id", null: false
-    t.integer "member_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_carts_on_book_id"
-    t.index ["member_id"], name: "index_carts_on_member_id"
+  create_table 'members', force: :cascade do |t|
+    t.string 'name'
+    t.string 'address'
+    t.string 'email'
+    t.string 'password'
+    t.string 'contact'
+    t.string 'type'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "members", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "email"
-    t.string "password"
-    t.string "contact"
-    t.string "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'orders', force: :cascade do |t|
+    t.integer 'quantity'
+    t.integer 'book_id', null: false
+    t.integer 'member_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['book_id'], name: 'index_orders_on_book_id'
+    t.index ['member_id'], name: 'index_orders_on_member_id'
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.integer "quantity"
-    t.integer "book_id", null: false
-    t.integer "cart_id", null: false
-    t.integer "member_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_orders_on_book_id"
-    t.index ["cart_id"], name: "index_orders_on_cart_id"
-    t.index ["member_id"], name: "index_orders_on_member_id"
+  create_table 'ratings', force: :cascade do |t|
+    t.integer 'rate'
+    t.text 'comment'
+    t.integer 'book_id', null: false
+    t.integer 'member_id', null: false
+    t.integer 'order_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['book_id'], name: 'index_ratings_on_book_id'
+    t.index ['member_id'], name: 'index_ratings_on_member_id'
+    t.index ['order_id'], name: 'index_ratings_on_order_id'
   end
 
-  create_table "ratings", force: :cascade do |t|
-    t.integer "rate"
-    t.text "comment"
-    t.integer "book_id", null: false
-    t.integer "member_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_ratings_on_book_id"
-    t.index ["member_id"], name: "index_ratings_on_member_id"
-  end
-
-  add_foreign_key "books", "members"
-  add_foreign_key "carts", "books"
-  add_foreign_key "carts", "members"
-  add_foreign_key "orders", "books"
-  add_foreign_key "orders", "carts"
-  add_foreign_key "orders", "members"
-  add_foreign_key "ratings", "books"
-  add_foreign_key "ratings", "members"
+  add_foreign_key 'books', 'members'
+  add_foreign_key 'orders', 'books'
+  add_foreign_key 'orders', 'members'
+  add_foreign_key 'ratings', 'books'
+  add_foreign_key 'ratings', 'members'
+  add_foreign_key 'ratings', 'orders'
 end

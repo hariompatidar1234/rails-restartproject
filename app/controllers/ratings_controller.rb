@@ -1,12 +1,12 @@
 class RatingsController < ApplicationController
-  before_action :find_rating, only: [:show, :update, :destroy]
+  before_action :find_rating, only: %i[show update destroy]
   protect_from_forgery
 
   # Show all ratings
   def index
     ratings = Rating.all
     render json: ratings
-  end 
+  end
 
   # Create a rating
   def create
@@ -49,8 +49,8 @@ class RatingsController < ApplicationController
 
   def find_rating
     @rating = Rating.find_by_id(params[:id])
-    unless @rating
-      render json: 'Rating not found'
-    end
+    return if @rating
+
+    render json: 'Rating not found'
   end
 end

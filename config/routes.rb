@@ -1,16 +1,8 @@
-# Rails.application.routes.draw do
-#   post 'members_login', to: 'members#login'
-#   get 'members_show',to: 'membersshow'
-#   resource :members
-# end
-# # config/routes.rb
-
 Rails.application.routes.draw do
-  resources :members, only: [:create, :update, :destroy, :show] do
-    collection do
-      post 'login'
-    end
-  end
-  
-  resources :books
+  resources :admins, only: %i[show create update destroy]
+  post '/admins_login', to: 'admins#login'
+  resources :users, only: %i[show create update destroy]
+  post '/users_login', to: 'users#login'
+  resources :books, only: %i[show create update destroy]
 end
+# config/routes.rb

@@ -1,0 +1,18 @@
+current directory: /home/hp/Desktop/rails-restartproject/.gems/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+/usr/share/rvm/rubies/ruby-3.2.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/hp/Desktop/rails-restartproject/.gems/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20230828-4930-icahvm sitelibdir\=./.gem.20230828-4930-icahvm clean
+
+current directory: /home/hp/Desktop/rails-restartproject/.gems/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20230828-4930-icahvm sitelibdir\=./.gem.20230828-4930-icahvm
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /home/hp/Desktop/rails-restartproject/.gems/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20230828-4930-icahvm sitelibdir\=./.gem.20230828-4930-icahvm install
+/usr/bin/install -m 0755 bootsnap.so ./.gem.20230828-4930-icahvm/bootsnap
+
+current directory: /home/hp/Desktop/rails-restartproject/.gems/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20230828-4930-icahvm sitelibdir\=./.gem.20230828-4930-icahvm clean

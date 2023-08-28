@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:show, :update, :destroy]
+  before_action :find_order, only: %i[show update destroy]
   protect_from_forgery
 
   # Show all orders
@@ -59,8 +59,8 @@ class OrdersController < ApplicationController
 
   def find_order
     @order = Order.find_by_id(params[:id])
-    unless @order
-      render json: 'order not found'
-    end
+    return if @order
+
+    render json: 'order not found'
   end
 end

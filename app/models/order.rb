@@ -1,6 +1,5 @@
 class Order < ApplicationRecord
   belongs_to :book
-  belongs_to :cart
   belongs_to :member
   has_many :ratings, dependent: :destroy
 
@@ -13,9 +12,9 @@ class Order < ApplicationRecord
 
   def validate_order_quantity
     if quantity <= 0
-      errors.add(:quantity, "must be greater than 0")
+      errors.add(:quantity, 'must be greater than 0')
     elsif quantity > book.quantity
-      errors.add(:quantity, "cannot exceed available stock")
+      errors.add(:quantity, 'cannot exceed available stock')
     end
   end
 
@@ -24,7 +23,7 @@ class Order < ApplicationRecord
     if remaining_quantity >= 0
       book.update(quantity: remaining_quantity)
     else
-      errors.add(:quantity, "exceeds available stock")
+      errors.add(:quantity, 'exceeds available stock')
       throw(:abort)
     end
   end
