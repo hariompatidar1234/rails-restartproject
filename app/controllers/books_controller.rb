@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
   before_action :find_book, only: %i[show update destroy]
-  # before_action :require_admin, only: [:create]
+  skip_before_action :check_user
+	skip_before_action :check_admin, only: :index
+
   protect_from_forgery
 
   # Show all books
@@ -14,11 +16,11 @@ class BooksController < ApplicationController
   end
 
   def create
-    book = @current_member.books.new(book_params)
+    book = @current_member.books.new(set_params)
     if book.save
       render json: book, status: :created
     else
-      render json: { error: book.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: book.errors.full_messages }
     end
   end
 

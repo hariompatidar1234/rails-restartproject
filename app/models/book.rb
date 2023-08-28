@@ -10,7 +10,7 @@ class Book < ApplicationRecord
 
   private
   def admin_only_add_book
-    unless user.type == "Admin"
+    unless member.type == "Admin"
       errors.add(:base, "Only Admin have permission to add Books.")      
     end
   end

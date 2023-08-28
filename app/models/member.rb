@@ -1,4 +1,5 @@
 class Member < ApplicationRecord
+  self.inheritance_column = 'type'
   has_many :books, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :ratings, dependent: :destroy

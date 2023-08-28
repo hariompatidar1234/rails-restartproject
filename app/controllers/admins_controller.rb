@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  # skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
   skip_before_action :authenticate_request, only: [:create]
   skip_before_action :check_user
   skip_before_action :check_admin, only: [:create]

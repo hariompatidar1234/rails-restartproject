@@ -1,5 +1,7 @@
 class RatingsController < ApplicationController
   before_action :find_rating, only: %i[show update destroy]
+  skip_before_action :check_admin
+	skip_before_action :check_user
   protect_from_forgery
 
   # Show all ratings
@@ -26,7 +28,7 @@ class RatingsController < ApplicationController
   private
 
   def set_params
-    params.permit(:rate, :comment, :book_id)
+    params.permit(:rate, :comment, :book_id,:order_id,:member_id)
   end
 
   def find_rating

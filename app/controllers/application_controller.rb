@@ -20,7 +20,9 @@ class ApplicationController < ActionController::Base
     render json: 'No record found..'
   end
 
-  attr_reader :current_member
+  def current_member
+    @current_member
+  end 
 
   def check_admin
     render json: { message: 'You are not admin' } unless @current_member.type == 'Admin'

@@ -13,24 +13,37 @@ class UsersController < ApplicationController
     end
   end
 
-  def update
-    @user = User.find_by_id(params[:id])
-    if @user.update(user_params)
-      render json: { message: 'user updated successfully' }
-    else
-      render json: { errors: @user.errors.full_messages }
-    end
-  end
+  # def update
+  #   @user = User.find_by_id(params[:id])
+  #   if @user.update(user_params)
+  #     render json: { message: 'user updated successfully' }
+  #   else
+  #     render json: { errors: @user.errors.full_messages }
+  #   end
+  # end
 
-  def destroy
-    @user = User.find_by_id(params[:id])
-    if @user
-      @user.destroy
-      render json: { message: 'user deleted successfully' }
+  # def destroy
+  #   @user = User.find_by_id(params[:id])
+  #   if @user
+  #     @user.destroy
+  #     render json: { message: 'user deleted successfully' }
+  #   else
+  #     render json: { error: 'user deletion failed' }, status: :internal_server_error
+  #   end
+  # end
+
+  def update
+    @current_member.update(user_params)
+    render json: { message: 'user updated' }
+end
+
+def destroy
+    if @current_member.destroy
+    render json: { message: 'user deleted' }, status: :deleted
     else
-      render json: { error: 'user deletion failed' }, status: :internal_server_error
+    render json: { message: 'user deletion failed' }
     end
-  end
+end
 
   def show
     @user = User.find(params[:id])

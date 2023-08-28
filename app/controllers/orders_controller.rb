@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: %i[show update destroy]
+  skip_before_action :check_admin
+	skip_before_action :check_user
   protect_from_forgery
 
   # Show all orders
@@ -14,9 +16,9 @@ class OrdersController < ApplicationController
 
   # Create an order
   def create
-    order = @current_member.orders(set_params)
+    order = @current_member.orders.build(set_params)  # Build the order with the parameters
     book = Book.find_by(id: order.book_id)
-
+  
     if book
       if order.save
         render json: order, status: :ok
@@ -27,6 +29,7 @@ class OrdersController < ApplicationController
       render json: { message: 'Book not found' }
     end
   end
+  
 
   # Update an order
   def update
