@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[create update]
+  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
   skip_before_action :authenticate_request, only: [:create]
   skip_before_action :check_user, only: [:create]
   skip_before_action :check_admin
@@ -13,41 +15,24 @@ class UsersController < ApplicationController
     end
   end
 
-  # def update
-  #   @user = User.find_by_id(params[:id])
-  #   if @user.update(user_params)
-  #     render json: { message: 'user updated successfully' }
-  #   else
-  #     render json: { errors: @user.errors.full_messages }
-  #   end
-  # end
-
-  # def destroy
-  #   @user = User.find_by_id(params[:id])
-  #   if @user
-  #     @user.destroy
-  #     render json: { message: 'user deleted successfully' }
-  #   else
-  #     render json: { error: 'user deletion failed' }, status: :internal_server_error
-  #   end
-  # end
-
   def update
-    @current_member.update(user_params)
-    render json: { message: 'user updated' }
-end
-
-def destroy
-    if @current_member.destroy
-    render json: { message: 'user deleted' }, status: :deleted
+    if @current_member.update(user_params)
+      render json: { message: 'user updated' }
     else
-    render json: { message: 'user deletion failed' }
+      render json: { message: 'user not update' }
     end
-end
+  end
+
+  def destroy
+    if @current_member.destroy
+      render json: { message: 'user deleted' }
+    else
+      render json: { message: 'user deletion failed' }
+    end
+  end
 
   def show
     @user = User.find(params[:id])
-
     if @user
       render json: @user, status: :ok
     else

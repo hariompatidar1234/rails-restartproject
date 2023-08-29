@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# separate user and model  inheriting from one base class member
 class MembersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[index create login]
   skip_before_action :check_admin
